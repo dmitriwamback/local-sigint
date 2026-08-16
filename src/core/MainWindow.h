@@ -6,6 +6,9 @@
 #define SIGINT_MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHBoxLayout>
+#include <QTableWidget>
+#include <QHeaderView>
 
 class MainWindow {
 public:
@@ -19,6 +22,10 @@ private:
     bool recordClipboard = false;
 
     QMainWindow mainWindow;
+
+    QWidget* centralWidget;
+    QHBoxLayout* mainLayout;
+    QTableWidget *processTable, *packetTable, *keystrokesTable;
 };
 
 
