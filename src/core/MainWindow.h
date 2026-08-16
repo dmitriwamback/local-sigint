@@ -18,8 +18,8 @@ public:
     void RecordKeystrokes();
     void RecordClipboard();
 private:
-    bool recordKeystrokes = false;
-    bool recordClipboard = false;
+    bool recordKeystrokesEnabled = false;
+    bool recordClipboardEnabled = false;
 
     QMainWindow mainWindow;
 

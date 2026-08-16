@@ -30,7 +30,7 @@ MainWindow::MainWindow() {
 
     packetTable = new QTableWidget();
     packetTable->setColumnCount(2);
-    packetTable->setHorizontalHeaderLabels({"DNS Hostname", "Occurences"});
+    packetTable->setHorizontalHeaderLabels({"DNS Hostname", "Count"});
     packetTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     packetTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
@@ -73,9 +73,9 @@ void MainWindow::DecodePackets() {
 }
 
 void MainWindow::RecordKeystrokes() {
-    if (!recordKeystrokes) return;
+    if (!recordKeystrokesEnabled) return;
 }
 
 void MainWindow::RecordClipboard() {
-    if (!recordClipboard) return;
+    if (!recordClipboardEnabled) return;
 }
