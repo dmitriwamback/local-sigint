@@ -20,9 +20,9 @@ qt_add_executable(sigint main.cpp
         src/process/macos/NSProcessResolver.h
         src/process/windows/Win32ProcessResolver.cpp
         src/process/windows/Win32ProcessResolver.h
-        src/process/macos/Bridging-Header.h
         src/core/MainWindow.cpp
-        src/core/MainWindow.h)
+        src/core/MainWindow.h
+        src/process/Process.h)
 
 target_link_libraries(sigint PRIVATE
     Qt6::Widgets

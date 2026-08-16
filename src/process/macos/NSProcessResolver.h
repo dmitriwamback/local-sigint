@@ -4,9 +4,12 @@
 
 #ifndef SIGINT_NSPROCESSRESOLVER_H
 #define SIGINT_NSPROCESSRESOLVER_H
-
+#include <vector>
+#include "../Process.h"
 
 class NSProcessResolver {
+public:
+    static std::vector<Process> GetProcesses();
 };
 
 

@@ -1,8 +1,0 @@
-//
-// Created by Dmitri on 2026-08-16.
-//
-
-#ifndef SIGINT_BRIDGING_HEADER_H
-#define SIGINT_BRIDGING_HEADER_H
-
-#endif //SIGINT_BRIDGING_HEADER_H
