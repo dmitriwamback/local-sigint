@@ -23,6 +23,51 @@ MainWindow::MainWindow(): QObject(nullptr) {
     mainWindow.setWindowTitle("SIGINT");
     mainWindow.resize(1200, 600);
 
+    mainWindow.setStyleSheet(R"(
+        QMainWindow {
+            background: #0d1117;
+        }
+
+        QWidget {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: "SF Pro Display";
+            font-size: 13px;
+        }
+
+        QTableWidget {
+            background: #11161d;
+            alternate-background-color: #0f141a;
+            border: 1px solid #30363d;
+            gridline-color: #21262d;
+            selection-background-color: #1f6feb;
+            selection-color: white;
+        }
+
+        QHeaderView::section {
+            background: #161b22;
+            color: #8b949e;
+            border: none;
+            border-bottom: 1px solid #30363d;
+            padding: 8px;
+            font-weight: bold;
+        }
+
+        QTableWidget::item {
+            padding: 6px;
+        }
+
+        QScrollBar:vertical {
+            background: #0d1117;
+            width: 8px;
+        }
+
+        QScrollBar::handle:vertical {
+            background: #30363d;
+            border-radius: 4px;
+        }
+    )");
+
     mainLayout = new QHBoxLayout();
 
     centralWidget = new QWidget();
@@ -66,6 +111,15 @@ MainWindow::MainWindow(): QObject(nullptr) {
 
     ResizeTables();
     SearchProcesses();
+
+    dnsCapture = new DNSCapture();
+
+    dnsCapture->Start([this](const std::string& host) {
+       QMetaObject::invokeMethod(this, [this, host]() {
+           OnDNSQuery(host);
+       },
+       Qt::QueuedConnection);
+    });
 }
 
 void MainWindow::ResizeTables() {
@@ -120,8 +174,22 @@ void MainWindow::SearchProcesses() {
     }
 }
 
-void MainWindow::DecodePackets() {
+void MainWindow::OnDNSQuery(const std::string& host) {
+    QString hostname = QString::fromStdString(host);
 
+    for (int row = 0; row < packetTable->rowCount(); row++) {
+        if (packetTable->item(row, 0)->text() == hostname) {
+            int count = packetTable->item(row, 1)->text().toInt();
+            packetTable->item(row, 1)->setText(QString::number(count+1));
+            return;
+        }
+    }
+
+    int row = packetTable->rowCount();
+    packetTable->insertRow(row);
+
+    packetTable->setItem(row, 0, new QTableWidgetItem(hostname));
+    packetTable->setItem(row, 1, new QTableWidgetItem("1"));
 }
 
 void MainWindow::RecordKeystrokes() {

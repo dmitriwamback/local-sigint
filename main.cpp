@@ -5,7 +5,7 @@
 
 #include "src/keystrokes/Keystrokes.h"
 #include "src/keystrokes/Clipboard.h"
-#include "src/packets/HostResolver.h"
+#include "src/packets/DNSCapture.h"
 
 #include "src/process/Process.h"
 
