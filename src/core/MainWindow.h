@@ -5,27 +5,39 @@
 #ifndef SIGINT_MAINWINDOW_H
 #define SIGINT_MAINWINDOW_H
 
+
 #include <QMainWindow>
 #include <QHBoxLayout>
+#include <QWidget>
 #include <QTableWidget>
-#include <QHeaderView>
+#include <QEvent>
 
-class MainWindow {
+class MainWindow : public QObject {
 public:
     MainWindow();
+
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
+
+private:
+    QMainWindow mainWindow;
+
+    QHBoxLayout* mainLayout;
+    QWidget* centralWidget;
+
+    QTableWidget* processTable;
+    QTableWidget* packetTable;
+    QTableWidget* keystrokesTable;
+
+    bool recordKeystrokesEnabled = false;
+    bool recordClipboardEnabled = false;
+
     void SearchProcesses();
     void DecodePackets();
     void RecordKeystrokes();
     void RecordClipboard();
-private:
-    bool recordKeystrokesEnabled = false;
-    bool recordClipboardEnabled = false;
 
-    QMainWindow mainWindow;
-
-    QWidget* centralWidget;
-    QHBoxLayout* mainLayout;
-    QTableWidget *processTable, *packetTable, *keystrokesTable;
+    void ResizeTables();
 };
 
 
